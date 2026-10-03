@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // TROQUE pelo(s) e-mail(s) de quem pode postar notícias (igual ao ADMINS do index.html)
+    function isAdmin() { return request.auth.token.email in ['gabrielenrique493@gmail.com']; }
+    function signed() { return request.auth != null; }
+    function members(c) { return get(/databases/$(database)/documents/chats/$(c)).data.members; }
+
+    match /users/{uid} {
+      allow read: if signed();
+      allow write: if signed() && request.auth.uid == uid
+        && (!('number' in request.resource.data)
+            || get(/databases/$(database)/documents/numbers/$(request.resource.data.number)).data.uid == request.auth.uid);
+    }
+    // número único: só pode ser criado uma vez e nunca alterado
+    match /numbers/{n} {
+      allow read: if signed();
+      allow create: if signed() && n.matches('^[0-9]{8,15}$') && request.resource.data.uid == request.auth.uid;
+    }
+    match /posts/{p} {
+      allow read: if signed();
+      allow create, delete: if signed() && isAdmin();
+    }
+    match /reactions/{r} {
+      allow read: if signed();
+      allow write: if signed() && request.resource.data.uid == request.auth.uid && r.matches('.*_' + request.auth.uid);
+    }
+    match /comments/{c} {
+      allow read: if signed();
+      allow create: if signed() && request.resource.data.by == request.auth.uid;
+    }
+    // chamadas de voz/vídeo: só quem liga e quem recebe
+    match /calls/{id} {
+      allow create: if signed() && request.resource.data.from == request.auth.uid;
+      allow read, update: if signed() && (resource.data.from == request.auth.uid || resource.data.to == request.auth.uid);
+      match /{col}/{d} {
+        allow read, create: if signed() && (get(/databases/$(database)/documents/calls/$(id)).data.from == request.auth.uid
+                                        || get(/databases/$(database)/documents/calls/$(id)).data.to == request.auth.uid);
+      }
+    }
+    // conversas privadas: só os membros leem e escrevem
+    match /chats/{c} {
+      allow read, update: if signed() && request.auth.uid in resource.data.members;
+      allow create: if signed() && request.auth.uid in request.resource.data.members;
+      match /messages/{m} {
+        allow read: if signed() && request.auth.uid in members(c);
+        allow create: if signed() && request.auth.uid in members(c) && request.resource.data.from == request.auth.uid;
+      }
+    }
+  }
+}
