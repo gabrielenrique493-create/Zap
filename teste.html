@@ -1,0 +1,18 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teste</title></head>
+<body style="font:16px system-ui;padding:16px"><h3>Teste do Paranavaí Zap</h3><pre id="o" style="white-space:pre-wrap;word-break:break-word"></pre>
+<script type="module">
+const o=document.getElementById('o'),log=t=>o.textContent+=t+'\n';
+log('1. Página carregou ✔');
+const cfg={apiKey:"AIzaSyCLBP3pH5YWkmtfY4Dw0RWFhLAScusi3uo",authDomain:"paranavai-zap.firebaseapp.com",projectId:"paranavai-zap",storageBucket:"paranavai-zap.firebasestorage.app",messagingSenderId:"1081279538855",appId:"1:1081279538855:web:493a6ff6f770c4a6411d82"};
+setTimeout(()=>log('(se não passou do último ✔ em 15 segundos, o celular não conseguiu baixar o Firebase)'),15000);
+try{
+  const V='https://www.gstatic.com/firebasejs/10.14.1/';
+  const {initializeApp}=await import(V+'firebase-app.js');log('2. Firebase baixou ✔');
+  const A=await import(V+'firebase-auth.js'),F=await import(V+'firebase-firestore.js');log('3. Login e banco baixaram ✔');
+  const app=initializeApp(cfg),auth=A.getAuth(app);log('4. Projeto iniciado ✔ ('+cfg.projectId+')');
+  await new Promise(r=>A.onAuthStateChanged(auth,r));log('5. Login pronto ✔ (sem usuário, é normal)');
+  try{await F.getDocs(F.collection(F.getFirestore(app),'users'));log('6. Banco respondeu ✔')}
+  catch(e){log('6. Banco respondeu com: '+(e.code||e.message)+' (permission-denied aqui é NORMAL, significa que o banco e as regras estão ativos)')}
+  log('Endereço: '+location.hostname);
+}catch(e){log('❌ ERRO: '+(e.code||'')+' '+e.message)}
+</script></body></html>
