@@ -46,6 +46,12 @@ textarea,select{border-radius:12px}
 </style></head><body>
 <header><div class="top">Paranavaí Zap</div><nav><button id="t1">NOTAS</button><button id="t2" class="on">CONVERSAS</button><button id="t3">AJUSTES</button></nav></header>
 <main id="app"><p class="mu pad">Carregando…</p></main>
+<script>
+(function(){var shown=false;function show(m){var a=document.getElementById('app');if(shown||!a||!/Carregando/.test(a.textContent))return;shown=true;
+a.innerHTML='<div style="padding:20px"><b>Não foi possível carregar o app.</b><p style="color:#667781;word-break:break-word">'+String(m).replace(/</g,'&lt;')+'</p><p>Abra o link no Chrome e verifique a internet. Se o erro continuar, mande um print desta tela.</p></div>'}
+window.addEventListener('error',function(e){show(e.message||e.error)});window.addEventListener('unhandledrejection',function(e){show((e.reason&&e.reason.message)||e.reason)});
+setTimeout(function(){show('Demorou demais para carregar. Se estiver abrindo por dentro do WhatsApp ou Instagram, toque em "Abrir no Chrome".')},15000)})();
+</script>
 <script type="module">
 /* ===== CONFIGURAÇÃO: cole aqui os dados do seu projeto Firebase ===== */
 const firebaseConfig={apiKey:"AIzaSyCLBP3pH5YWkmtfY4Dw0RWFhLAScusi3uo",authDomain:"paranavai-zap.firebaseapp.com",projectId:"paranavai-zap",storageBucket:"paranavai-zap.firebasestorage.app",messagingSenderId:"1081279538855",appId:"1:1081279538855:web:493a6ff6f770c4a6411d82"};
@@ -55,7 +61,7 @@ const V="https://www.gstatic.com/firebasejs/10.14.1/";
 const {initializeApp}=await import(V+"firebase-app.js");
 const A=await import(V+"firebase-auth.js"),F=await import(V+"firebase-firestore.js");
 const fapp=initializeApp(firebaseConfig),auth=A.getAuth(fapp);
-const db=F.initializeFirestore(fapp,{localCache:F.persistentLocalCache({tabManager:F.persistentMultipleTabManager()})});
+let db;try{db=F.initializeFirestore(fapp,{localCache:F.persistentLocalCache({tabManager:F.persistentMultipleTabManager()})})}catch(e){db=F.getFirestore(fapp)}
 const {collection,doc,getDoc,setDoc,updateDoc,addDoc,query,where,orderBy,limit,onSnapshot}=F;
 const $=(t,p={},...k)=>{const e=document.createElement(t);Object.assign(e,p);k.forEach(x=>e.append(x));return e};
 const BOT='bot',app=document.getElementById('app'),t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3');
@@ -88,7 +94,7 @@ function botSay(t){setTimeout(()=>{const l=getLog(BOT);l.push({from:BOT,text:t,t
 A.onAuthStateChanged(auth,u=>{authed=u;if(!u){ready=false;render();return}me=u.uid;mail=u.email;boot()});
 function boot(){
   onSnapshot(collection(db,'users'),s=>{profs={};s.docs.forEach(d=>profs[d.id]=d.data());
-    if(!ready){ready=true;step=!P(me).number?1:!P(me).name?2:0;start();beat()}render()});
+    if(!ready){ready=true;step=!P(me).number?1:!P(me).name?2:0;start();beat()}render()},e=>{app.replaceChildren($('p',{className:'c',style:'word-break:break-word',textContent:'Erro ao ler o banco de dados ('+(e.code||e.message)+'). Confira se as regras do Firestore foram publicadas.'}))});
 }
 function start(){
   onSnapshot(query(collection(db,'posts'),orderBy('ts','desc'),limit(100)),s=>{posts=s.docs.map(d=>({id:d.id,...d.data()}));render()});
@@ -109,7 +115,7 @@ function render(){
   const ae=document.activeElement;
   if(authed&&ae&&ae.id=='ci'&&chatWith){const b=document.getElementById('msgs');b&&fillMsgs(b);const st=document.getElementById('st');if(st&&chatWith==BOT||st&&!chats[chatWith]?.group)st.textContent=status(chatWith==BOT?BOT:other(chats[chatWith]));return}
   if(ae&&['INPUT','TEXTAREA','SELECT'].includes(ae.tagName))return;
-  if(!authed)return app.replaceChildren(login());if(!ready)return;
+  if(!authed)return app.replaceChildren(login());if(!ready){app.replaceChildren($('p',{className:'mu pad',textContent:'Carregando…'}));return}
   app.replaceChildren(...(step?[onb()]:tab==1?notas():tab==2?conversas():ajustes()))}
 const ERR={'auth/invalid-credential':'E-mail ou senha incorretos.','auth/email-already-in-use':'Esse e-mail já tem conta. Use "Entrar".','auth/weak-password':'A senha precisa de pelo menos 6 caracteres.','auth/invalid-email':'E-mail inválido.','auth/popup-closed-by-user':'Login cancelado.'};
 function login(){const e=$('input',{type:'email',placeholder:'Seu e-mail (Gmail ou outro)'}),p=$('input',{type:'password',placeholder:'Senha'}),er=$('p',{className:'mu'});
