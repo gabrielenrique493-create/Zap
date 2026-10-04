@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Paranavaí Zap</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#008069"><link rel="manifest" href="zap3.webmanifest"><link rel="icon" href="icon-192.png">
+<style>
+:root{--hd:#008069;--bg:#fff;--wall:#efeae2;--tx:#111b21;--mu:#667781;--bd:#e9edef;--ac:#00a884;--out:#d9fdd3;--in:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hd:#1f2c34;--bg:#111b21;--wall:#0b141a;--tx:#e9edef;--mu:#8696a0;--bd:#222d34;--out:#005c4b;--in:#202c33}}
+:root[data-theme="dark"]{--hd:#1f2c34;--bg:#111b21;--wall:#0b141a;--tx:#e9edef;--mu:#8696a0;--bd:#222d34;--out:#005c4b;--in:#202c33}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px system-ui,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--hd);color:#fff;z-index:2}
+.top{font:600 21px system-ui;padding:14px 16px 4px}nav{display:flex}
+nav button{flex:1;padding:12px;border:0;background:none;color:#ffffffb3;font:600 13px system-ui;letter-spacing:.6px;border-bottom:3px solid transparent}
+nav button.on{color:#fff;border-color:#fff}main{max-width:640px;margin:0 auto}
+.pad{padding:10px}.wall{background:var(--wall);min-height:70vh;padding:10px}
+.c{background:var(--bg);border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 2px #0002}
+textarea,input,select{width:100%;padding:10px 14px;border:0;border-radius:22px;background:var(--wall);color:var(--tx);font:inherit;outline:0}
+textarea,select{border-radius:12px}
+.b{background:var(--ac);color:#fff;border:0;border-radius:22px;padding:10px 18px;font:600 14px system-ui}.b.l{background:none;color:var(--ac)}
+.r{display:flex;gap:8px;margin-top:8px}.r button{border:1px solid var(--bd);background:none;color:var(--tx);border-radius:20px;padding:6px 12px}.r button.on{border-color:var(--ac);color:var(--ac)}
+.mu{color:var(--mu);font-size:13px}.cm{padding:6px 0;border-top:1px solid var(--bd);margin-top:6px;font-size:14px}
+.row{display:flex;gap:8px;align-items:center}.row input{flex:1}
+.f{padding:10px 16px;cursor:pointer;display:flex;gap:14px;align-items:center}.f>.mid{flex:1;min-width:0;border-bottom:1px solid var(--bd);padding:4px 0 10px}
+.l1{display:flex;justify-content:space-between;gap:8px}.nw{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{width:48px;height:48px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;flex:none;font-size:20px}
+.big{width:110px;height:110px;font-size:44px;margin:0 auto}img.av{object-fit:cover}
+.bd{background:var(--ac);color:#fff;border-radius:12px;min-width:22px;height:22px;font-size:10px;display:flex;align-items:center;justify-content:center;padding:0 6px;margin-left:auto}
+.pos{position:relative;flex:none}.dot{position:absolute;right:0;bottom:0;width:13px;height:13px;border-radius:50%;background:#25d366;border:2px solid var(--bg)}
+.ch{background:var(--hd);color:#fff;display:flex;gap:10px;align-items:center;padding:8px 12px;position:sticky;top:env(safe-area-inset-top,0px)}
+.ch button{background:none;border:0;color:#fff;font-size:22px}.ch .mu{color:#ffffffb3}
+.cw{display:flex;flex-direction:column;height:100dvh}#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:10px;background:var(--wall)}
+.m{max-width:80%;padding:6px 10px;border-radius:10px;margin:2px 0;background:var(--in);box-shadow:0 1px 1px #0002;word-wrap:break-word}
+.m.me{background:var(--out);margin-left:auto}.m small{display:block;text-align:right;color:var(--mu);font-size:11px}.m b{display:block;font-size:12px;color:var(--ac)}
+.m img{max-width:100%;border-radius:8px;display:block;cursor:pointer;margin-bottom:2px}
+.bar{display:flex;gap:8px;padding:8px;background:var(--wall);align-items:center}.bar input{background:var(--bg)}.clip{background:none;border:0;font-size:24px;padding:0 4px;flex:none}
+.send{width:46px;height:46px;border-radius:50%;border:0;background:var(--ac);color:#fff;font-size:18px;flex:none}
+.ov{position:fixed;inset:0;background:#000d;display:flex;align-items:center;justify-content:center;z-index:9}.ov img{max-width:96%;max-height:96%}
+.ob{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
+.ob h1{color:var(--ac);font-size:34px;margin:0;letter-spacing:1px}.ob p{margin:0}.ob input{max-width:320px;text-align:center}.set label{display:block;font-weight:600;margin-bottom:6px}
+.call{position:fixed;inset:0;background:#111b21;color:#fff;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.call .rv{position:absolute;width:1px;height:1px;opacity:0}.call.vid .rv{inset:0;width:100%;height:100%;opacity:1;object-fit:cover}
+.call .lv{position:absolute;right:12px;top:calc(48px + env(safe-area-inset-top,0px));width:96px;height:128px;object-fit:cover;border-radius:10px;display:none;transform:scaleX(-1);z-index:3}.call.v .lv{display:block}
+.ci{display:flex;flex-direction:column;align-items:center;gap:10px;z-index:1;text-align:center;font-size:22px}.call.vid .ci{display:none}
+.cs{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0;text-align:center;z-index:2;text-shadow:0 1px 3px #000}
+.cb{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));display:flex;gap:18px;z-index:3}
+.cbtn{width:62px;height:62px;border-radius:50%;border:0;font-size:26px;background:#2a3942;color:#fff}.cbtn.red{background:#e53935}.cbtn.green{background:#25d366}.cbtn.off{background:#fff;color:#111}
+.m audio{width:230px;max-width:100%;display:block;margin-bottom:2px}
+.mic{width:46px;height:46px;border-radius:50%;border:0;background:var(--bg);color:var(--tx);font-size:20px;flex:none;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:transform .1s}
+.mic.on{background:#e53935;color:#fff;transform:scale(1.3)}
+#msgs{background:var(--wall) var(--chatbg,none) center/cover no-repeat;box-shadow:inset 0 0 0 9999px rgba(0,0,0,var(--dim,0))}
+</style></head><body>
+<header><div class="top">Paranavaí Zap</div><nav><button id="t1">NOTAS</button><button id="t2" class="on">CONVERSAS</button><button id="t3">AJUSTES</button></nav></header>
+<main id="app"><p class="mu pad">Carregando… (v8)</p></main>
+<script>
+window.__st='0 página carregada';(function(){var shown=false;function show(m){var a=document.getElementById('app');if(shown||!a||!/Carregando/.test(a.textContent))return;shown=true;
+a.innerHTML='<div style="padding:20px"><b>Não foi possível carregar o app.</b><p style="color:#667781;word-break:break-word">'+String(m).replace(/</g,'&lt;')+'</p><p>Abra o link no Chrome e verifique a internet. Se o erro continuar, mande um print desta tela.</p><p style="color:#667781">[Etapa: '+(window.__st||'?')+' · v8]</p></div>'}
+window.addEventListener('error',function(e){show(e.message||e.error)});window.addEventListener('unhandledrejection',function(e){show((e.reason&&e.reason.message)||e.reason)});
+setTimeout(function(){show('Demorou demais para carregar. Se estiver abrindo por dentro do WhatsApp ou Instagram, toque em "Abrir no Chrome".')},15000)})();
+</script>
+<script type="module">
+/* ===== CONFIGURAÇÃO: cole aqui os dados do seu projeto Firebase ===== */
+const firebaseConfig={apiKey:"AIzaSyCLBP3pH5YWkmtfY4Dw0RWFhLAScusi3uo",authDomain:"paranavai-zap.firebaseapp.com",projectId:"paranavai-zap",storageBucket:"paranavai-zap.firebasestorage.app",messagingSenderId:"1081279538855",appId:"1:1081279538855:web:493a6ff6f770c4a6411d82"};
+const ADMINS=["gabrielenrique493@gmail.com"]; /* quem pode postar notícias (igual ao firestore.rules) */
+/* ==================================================================== */
+const V="https://www.gstatic.com/firebasejs/10.14.1/";
+const {initializeApp}=await import(V+"firebase-app.js");
+const A=await import(V+"firebase-auth.js"),F=await import(V+"firebase-firestore.js");
+const fapp=initializeApp(firebaseConfig),auth=A.getAuth(fapp);
+const db=F.getFirestore(fapp);window.__st='2 firebase iniciado';
+const {collection,doc,getDoc,setDoc,updateDoc,addDoc,query,where,orderBy,limit,onSnapshot}=F;
+const $=(t,p={},...k)=>{const e=document.createElement(t);Object.assign(e,p);k.forEach(x=>e.append(x));return e};
+const BOT='bot',app=document.getElementById('app'),t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3');
+let me,mail,profs={},chats={},msgs=[],unsubMsgs=null,posts=[],reacts=[],comments=[],tab=2,chatWith=null,ng=null,step=0,ready=false,authed=null,authKnown=false,recording=false;
+const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+function applyTheme(){const t=LS.get('theme','auto');if(t=='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.dataset.theme=t}applyTheme();
+const P=id=>id==BOT?{name:'Zap Bot'}:profs[id]||{},hm=t=>new Date(t).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+const other=c=>c.members.find(x=>x!=me),cn=id=>{if(id==BOT)return'Zap Bot';const c=chats[id];return c?(c.group?c.name:P(other(c)).name||'Alguém'):'Conversa'};
+const nm=id=>id==me?'Você':P(id).name||'Alguém',hue=n=>{let h=0;for(const c of n||'?')h=(h*31+c.charCodeAt(0))%360;return h};
+const isOn=id=>id==BOT||(P(id).online&&Date.now()-(P(id).seen||0)<75000);
+const status=id=>isOn(id)?'online':'offline'+(P(id).seen?' · visto às '+hm(P(id).seen):'');
+const pv=m=>m.audio?'🎤 Áudio':m.img?'📷 Foto':m.text;
+function avU(id,big){const c='av'+(big?' big':''),p=P(id);if(id==BOT)return $('div',{className:c,textContent:'🤖',style:'background:var(--ac)'});
+  if(p.photo)return $('img',{className:c,src:p.photo});return $('div',{className:c,textContent:nm(id)[0].toUpperCase(),style:'background:hsl('+hue(nm(id))+',45%,42%)'})}
+function avC(id){if(id!=BOT&&chats[id]?.group)return $('div',{className:'av',textContent:'👥',style:'background:#6b7c85'});
+  const u=id==BOT?BOT:other(chats[id]);return $('div',{className:'pos'},avU(u),...(isOn(u)?[$('span',{className:'dot'})]:[]))}
+const dmId=(a,b)=>[a,b].sort().join('_'),upd=d=>updateDoc(doc(db,'users',me),d);
+function shrink(f,max,q,sq){return new Promise(res=>{const im=new Image();im.onload=()=>{const m=Math.min(im.width,im.height),s=sq?max/m:Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');
+  if(sq){c.width=c.height=max;c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,max,max)}else{c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height)}res(c.toDataURL('image/jpeg',q))};im.src=URL.createObjectURL(f)})}
+const pickFile=cb=>{const i=$('input',{type:'file',accept:'image/*'});i.onchange=()=>i.files[0]&&cb(i.files[0]);i.click()};
+const pickAvatar=()=>pickFile(async f=>upd({photo:await shrink(f,160,.8,true)}));
+function showImg(src){const o=$('div',{className:'ov',onclick:()=>o.remove()},$('img',{src}));document.body.append(o)}
+/* ---- bot ---- */
+const getLog=k=>LS.get('chat:'+k,[]),setLog=(k,l)=>LS.set('chat:'+k,l);
+function botAnswer(t){const l=t.toLowerCase();if(/^(oi|olá|ola|e ai|eai)/.test(l))return'Olá! Tudo bem? 😊';if(l.includes('ajuda'))return'Eu entendo: oi, hora, piada, dado e teste. O resto eu repito.';
+  if(l.includes('hora'))return'Agora são '+hm(Date.now());if(l.includes('piada'))return'Por que o computador foi ao médico? Porque estava com vírus! 🦠';
+  if(l.includes('dado'))return'🎲 Saiu '+(1+Math.floor(Math.random()*6));if(l.includes('teste'))return'✅ Mensagem recebida!';return'Você disse: '+t}
+function botSay(t){setTimeout(()=>{const l=getLog(BOT);l.push({from:BOT,text:t,ts:Date.now()});setLog(BOT,l);if(chatWith==BOT){msgs=l;const b=document.getElementById('msgs');b&&fillMsgs(b)}else render()},800)}
+/* ---- auth ---- */
+A.onAuthStateChanged(auth,u=>{try{window.__st='4 login respondeu ('+(u?'logado':'sem usuário')+')';authed=u;authKnown=true;if(!u){ready=false;render();window.__st='5 tela de login montada';return}me=u.uid;mail=u.email;boot()}catch(e){app.replaceChildren($('p',{className:'c',style:'word-break:break-word',textContent:'Erro na etapa '+window.__st+': '+(e.message||e)}))}});
+function boot(){
+  onSnapshot(collection(db,'users'),s=>{profs={};s.docs.forEach(d=>profs[d.id]=d.data());
+    if(!ready){ready=true;step=!P(me).number?1:!P(me).name?2:0;start();beat()}render()},e=>{app.replaceChildren($('p',{className:'c',style:'word-break:break-word',textContent:'Erro ao ler o banco de dados ('+(e.code||e.message)+'). Confira se as regras do Firestore foram publicadas.'}))});
+}
+function start(){
+  onSnapshot(query(collection(db,'posts'),orderBy('ts','desc'),limit(100)),s=>{posts=s.docs.map(d=>({id:d.id,...d.data()}));render()});
+  onSnapshot(collection(db,'reactions'),s=>{reacts=s.docs.map(d=>d.data());render()});
+  onSnapshot(query(collection(db,'comments'),orderBy('ts'),limit(500)),s=>{comments=s.docs.map(d=>({id:d.id,...d.data()}));render()});
+  onSnapshot(query(collection(db,'chats'),where('members','array-contains',me)),s=>{chats={};s.docs.forEach(d=>chats[d.id]={id:d.id,...d.data()});render()});
+  onSnapshot(query(collection(db,'calls'),where('to','==',me),where('status','==','ringing')),s=>s.docChanges().forEach(ch=>{const d=ch.doc.data(),id=ch.doc.id;
+    if(ch.type=='added'&&Date.now()-d.ts<60000)incoming(id,d);if(ch.type=='removed')document.querySelector('[data-cid="'+id+'"]')?.remove()}));
+}
+function beat(){const ok=()=>P(me).number,go=()=>{if(ok()&&document.visibilityState=='visible')upd({online:true,seen:Date.now()}).catch(()=>{})},off=()=>{if(ok())upd({online:false,seen:Date.now()}).catch(()=>{})};
+  go();setInterval(go,30000);setInterval(render,30000);document.addEventListener('visibilitychange',()=>document.visibilityState=='visible'?go():off());addEventListener('pagehide',off)}
+t1.onclick=()=>{tab=1;leave();ng=null;render()};t2.onclick=()=>{tab=2;render()};t3.onclick=()=>{tab=3;leave();ng=null;render()};
+function leave(){chatWith=null;unsubMsgs&&unsubMsgs();unsubMsgs=null}
+function render(){
+  const full=authed===null||!authed||step||(tab==2&&(chatWith||ng));document.querySelector('header').style.display=full?'none':'';
+  [t1,t2,t3].forEach((b,i)=>b.className=tab==i+1?'on':'');
+  if(!authKnown)return;
+  const ae=document.activeElement;
+  if(authed&&(recording||ae&&ae.id=='ci')&&chatWith){const b=document.getElementById('msgs');b&&fillMsgs(b);const st=document.getElementById('st');if(st&&chatWith==BOT||st&&!chats[chatWith]?.group)st.textContent=status(chatWith==BOT?BOT:other(chats[chatWith]));return}
+  if(ae&&['INPUT','TEXTAREA','SELECT'].includes(ae.tagName))return;
+  if(!authed)return app.replaceChildren(login());if(!ready){app.replaceChildren($('p',{className:'mu pad',textContent:'Carregando… (v8)'}));return}
+  app.replaceChildren(...(step?[onb()]:tab==1?notas():tab==2?conversas():ajustes()))}
+const ERR={'auth/invalid-credential':'E-mail ou senha incorretos.','auth/email-already-in-use':'Esse e-mail já tem conta. Use "Entrar".','auth/weak-password':'A senha precisa de pelo menos 6 caracteres.','auth/invalid-email':'E-mail inválido.','auth/popup-closed-by-user':'Login cancelado.'};
+function login(){const e=$('input',{type:'email',placeholder:'Seu e-mail (Gmail ou outro)'}),p=$('input',{type:'password',placeholder:'Senha'}),er=$('p',{className:'mu'});
+  const run=fn=>async()=>{try{er.textContent='';await fn()}catch(x){er.textContent=ERR[x.code]||'Não foi possível entrar. ('+x.code+')'}};
+  return $('div',{className:'ob'},$('h1',{textContent:'PARANAVAI ZAP'}),$('p',{textContent:'Boas-vindas'}),e,p,er,
+    $('button',{className:'b',textContent:'Entrar',onclick:run(()=>A.signInWithEmailAndPassword(auth,e.value.trim(),p.value))}),
+    $('button',{className:'b l',textContent:'Criar conta',onclick:run(()=>A.createUserWithEmailAndPassword(auth,e.value.trim(),p.value))}),
+    $('button',{className:'b l',textContent:'Entrar com Google',onclick:run(()=>A.signInWithPopup(auth,new A.GoogleAuthProvider()))}),
+    $('button',{className:'b l',textContent:'Esqueci a senha',onclick:run(async()=>{await A.sendPasswordResetEmail(auth,e.value.trim());er.textContent='Enviamos um e-mail para redefinir a senha.'})}))}
+function onb(){const w=$('div',{className:'ob'},$('h1',{textContent:'PARANAVAI ZAP'}),$('p',{textContent:'Boas-vindas'})),er=$('p',{className:'mu'});
+  if(step==1){const i=$('input',{placeholder:'Crie seu número',inputMode:'numeric',maxLength:15});i.oninput=()=>i.value=i.value.replace(/\D/g,'');
+    w.append(i,er,$('button',{className:'b',textContent:'Criar número',onclick:async()=>{const n=i.value;if(n.length<8){er.textContent='Use de 8 a 15 dígitos.';return}
+      try{if((await getDoc(doc(db,'numbers',n))).exists())throw 0;await setDoc(doc(db,'numbers',n),{uid:me});await setDoc(doc(db,'users',me),{number:n,email:mail||''});step=2;render()}
+      catch{er.textContent='Esse número já está em uso. Escolha outro.'}}}),$('p',{className:'mu',textContent:'Cada número é único e só pode ser seu.'}))}
+  else if(step==2)w.append($('p',{textContent:'Escolha sua foto'}),avU(me,1),$('button',{className:'b',textContent:'Escolher foto',onclick:pickAvatar}),$('button',{className:'b l',textContent:'Continuar',onclick:()=>{step=3;render()}}));
+  else{const i=$('input',{placeholder:'Seu nome',maxLength:30});w.append($('p',{textContent:'Qual é o seu nome?'}),i,er,$('button',{className:'b',textContent:'Entrar',onclick:async()=>{const n=i.value.trim();if(!n){er.textContent='Digite seu nome.';return}await upd({name:n,nameLower:n.toLowerCase()});step=0;render()}}))}
+  return w}
+/* ---- plano de fundo das conversas (foto ou GIF), salvo neste aparelho ---- */
+const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('zapbg',1);r.onupgradeneeded=()=>r.result.createObjectStore('k');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+const bgGet=async()=>{try{const d=await idb();return await new Promise(r=>{const q=d.transaction('k').objectStore('k').get('bg');q.onsuccess=()=>r(q.result||null);q.onerror=()=>r(null)})}catch{return null}};
+const bgPut=async b=>{const d=await idb();return new Promise((res,rej)=>{const t=d.transaction('k','readwrite');b?t.objectStore('k').put(b,'bg'):t.objectStore('k').delete('bg');t.oncomplete=res;t.onerror=()=>rej(t.error)})};
+let bgUrl=null;
+function applyBg(b){if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl=b?URL.createObjectURL(b):null;document.documentElement.style.setProperty('--chatbg',bgUrl?'url("'+bgUrl+'")':'none')}
+document.documentElement.style.setProperty('--dim',LS.get('dim',0));bgGet().then(applyBg);
+function pickBg(msg){pickFile(async f=>{try{let b;if(f.type=='image/gif'){if(f.size>8*1024*1024){msg.textContent='GIF muito grande (máximo 8 MB).';return}b=f}
+    else b=await(await fetch(await shrink(f,1280,.8))).blob();
+    await bgPut(b);applyBg(b);msg.textContent='Fundo aplicado ✔'}catch(e){msg.textContent='Não foi possível salvar o fundo neste aparelho.'}})}
+function bgCard(){const pvw=$('div',{style:'height:110px;border-radius:12px;background:var(--wall) var(--chatbg,none) center/cover no-repeat;box-shadow:inset 0 0 0 999px rgba(0,0,0,var(--dim,0));margin-bottom:8px'}),
+  range=$('input',{type:'range',min:0,max:70,value:Math.round(LS.get('dim',0)*100),style:'padding:0;background:none'}),msg=$('p',{className:'mu'});
+  range.oninput=()=>{const v=range.value/100;LS.set('dim',v);document.documentElement.style.setProperty('--dim',v)};
+  return $('div',{className:'c set'},$('label',{textContent:'Plano de fundo das conversas'}),pvw,
+    $('div',{className:'row'},$('button',{className:'b',textContent:'Escolher foto ou GIF',onclick:()=>pickBg(msg)}),$('button',{className:'b l',textContent:'Remover',onclick:async()=>{await bgPut(null);applyBg(null);msg.textContent='Fundo removido.'}})),
+    $('label',{style:'margin-top:10px',textContent:'Escurecer o fundo'}),range,msg,$('p',{className:'mu',textContent:'Fica salvo só neste aparelho. GIFs animados até 8 MB.'}))}
+function ajustes(){const p=P(me),ni=$('input',{value:p.name||'',maxLength:30}),sv=$('button',{className:'b',textContent:'Salvar nome',style:'margin-top:8px'});
+  sv.onclick=async()=>{const n=ni.value.trim();if(!n)return;await upd({name:n,nameLower:n.toLowerCase()});sv.textContent='Salvo ✓'};
+  const sel=$('select',{},...[['auto','Automático'],['light','Claro'],['dark','Escuro']].map(([v,t])=>$('option',{value:v,textContent:t,selected:LS.get('theme','auto')==v})));sel.onchange=()=>{LS.set('theme',sel.value);applyTheme()};
+  return [$('div',{className:'wall'},$('div',{className:'c',style:'text-align:center'},avU(me,1),$('div',{},$('button',{className:'b',style:'margin-top:10px',textContent:'Mudar foto',onclick:pickAvatar})),$('p',{className:'mu',style:'margin-top:8px',textContent:'Seu número: '+(p.number||'')+' · '+(mail||'')})),
+    $('div',{className:'c set'},$('label',{textContent:'Nome'}),ni,sv),$('div',{className:'c set'},$('label',{textContent:'Tema'}),sel),bgCard(),$('button',{className:'b',textContent:'Sair da conta',onclick:()=>{upd({online:false,seen:Date.now()}).finally(()=>A.signOut(auth).then(()=>location.reload()))}}))]}
+function notas(){const out=[],can=ADMINS.map(x=>x.toLowerCase()).includes((mail||'').toLowerCase());
+  if(can){const ta=$('textarea',{rows:3,placeholder:'Escreva uma notícia…'});out.push($('div',{className:'c'},ta,$('div',{className:'r'},$('button',{className:'b',textContent:'Publicar',onclick:async()=>{const t=ta.value.trim();if(!t)return;try{await addDoc(collection(db,'posts'),{text:t,by:me,ts:Date.now()});ta.value='';ta.blur();render()}catch(e){alert(e.code=='permission-denied'?'O Firestore recusou a publicação. Nas Regras do Firestore, a linha isAdmin() precisa ter exatamente o e-mail '+mail+' e você precisa ter tocado em Publicar nas regras.':'Não foi possível publicar: '+(e.code||e.message))}}}))))}else out.push($('div',{className:'c mu',textContent:'Você entrou como '+(mail||'?')+'. Só o administrador publica notícias.'}))
+  if(!posts.length)out.push($('p',{className:'mu',textContent:'Nenhuma nota ainda.'}));
+  posts.forEach(p=>{const mine=k=>reacts.some(r=>r.post==p.id&&r.uid==me&&r[k]),cnt=k=>reacts.filter(r=>r.post==p.id&&r[k]).length;
+    const tg=k=>()=>{const cur={post:p.id,uid:me,like:mine('like'),heart:mine('heart')};cur[k]=!cur[k];setDoc(doc(db,'reactions',p.id+'_'+me),cur)};
+    const cs=comments.filter(x=>x.post==p.id),inp=$('input',{placeholder:'Comentar…'});
+    const send=async()=>{const t=inp.value.trim();if(!t)return;try{await addDoc(collection(db,'comments'),{post:p.id,by:me,text:t,ts:Date.now()});inp.value='';inp.blur();render()}catch(e){alert('Não foi possível comentar: '+(e.code||e.message))}};inp.onkeydown=e=>{if(e.key=='Enter')send()};
+    out.push($('div',{className:'c'},$('div',{className:'row'},avU(p.by),$('div',{},$('b',{textContent:nm(p.by)}),$('div',{className:'mu',textContent:new Date(p.ts).toLocaleString('pt-BR')}))),$('p',{textContent:p.text,style:'white-space:pre-wrap'}),
+      $('div',{className:'r'},$('button',{className:mine('like')?'on':'',textContent:'👍 '+cnt('like'),onclick:tg('like')}),$('button',{className:mine('heart')?'on':'',textContent:'❤️ '+cnt('heart'),onclick:tg('heart')})),
+      ...cs.map(x=>$('div',{className:'cm'},$('b',{textContent:nm(x.by)+': '}),x.text)),$('div',{className:'row',style:'margin-top:8px'},inp,$('button',{className:'b',textContent:'Enviar',onclick:send}))))});
+  return [$('div',{className:'wall'},...out)]}
+function fillMsgs(box){if([...box.querySelectorAll('audio')].some(a=>!a.paused)){clearTimeout(box._t);box._t=setTimeout(()=>fillMsgs(box),1500);return}const g=chatWith!=BOT&&chats[chatWith]?.group;box.replaceChildren(...msgs.map(m=>{const mm=m.from==me;return $('div',{className:'m'+(mm?' me':'')},...(g&&!mm?[$('b',{textContent:nm(m.from)})]:[]),...(m.audio?[$('audio',{controls:true,preload:'metadata',src:m.audio})]:[]),...(m.img?[$('img',{src:m.img,onclick:()=>showImg(m.img)})]:[]),m.text||'',$('small',{textContent:hm(m.ts)}))}));box.scrollTop=box.scrollHeight}
+function openChat(id){chatWith=id;unsubMsgs&&unsubMsgs();const rd=()=>{const r=LS.get('read',{});r[id]=Date.now();LS.set('read',r)};rd();
+  if(id==BOT){msgs=getLog(BOT)}else{msgs=[];unsubMsgs=onSnapshot(query(collection(db,'chats',id,'messages'),orderBy('ts')),s=>{msgs=s.docs.map(d=>d.data());rd();const b=document.getElementById('msgs');b&&fillMsgs(b)})}render()}
+async function openDM(uid){const id=dmId(me,uid);if(!chats[id])await setDoc(doc(db,'chats',id),{members:[me,uid].sort(),group:false,ts:Date.now()},{merge:true});openChat(id)}
+function row(id,title,sub,time,badge){return $('div',{className:'f',onclick:()=>openChat(id)},avC(id),$('div',{className:'mid'},$('div',{className:'l1'},$('b',{className:'nw',textContent:title}),$('span',{className:'mu',textContent:time})),$('div',{className:'l1'},$('span',{className:'mu nw',textContent:sub}),badge?$('span',{className:'bd',textContent:'●'}):'')))}
+function conversas(){if(ng)return newgroup();if(chatWith)return chat();
+  const rd=LS.get('read',{}),q=$('input',{placeholder:'🔍 Buscar nome ou número para conversar'}),res=$('div');
+  q.oninput=()=>{res.replaceChildren();const t=q.value.trim().toLowerCase();if(t.length<2)return;
+    const h=Object.entries(profs).filter(([id,p])=>id!=me&&p.name&&(p.name.toLowerCase().includes(t)||(p.number||'').includes(t)));
+    h.forEach(([id,p])=>res.append($('div',{className:'f',onclick:()=>openDM(id)},avU(id),$('div',{className:'mid'},$('b',{textContent:p.name}),$('div',{className:'mu',textContent:p.number})))));
+    if(!h.length)res.append($('p',{className:'mu pad',textContent:'Ninguém encontrado.'}))};
+  const bl=getLog(BOT),bm=bl[bl.length-1];if(!bl.length)setLog(BOT,[{from:BOT,text:'Oi! Sou o Zap Bot 🤖 Mande "ajuda".',ts:Date.now()}]);
+  const items=[{id:BOT,ts:bm?.ts||Date.now(),el:()=>row(BOT,'Zap Bot',bm?(bm.from==me?'Você: ':'')+pv(bm):'Mande "ajuda"',bm?hm(bm.ts):'',bm&&bm.from!=me&&bm.ts>(rd[BOT]||0))},
+    ...Object.values(chats).map(c=>({id:c.id,ts:c.last?.ts||c.ts||0,el:()=>row(c.id,cn(c.id),c.last?((c.last.from==me?'Você: ':c.group?nm(c.last.from)+': ':'')+c.last.text):'Sem mensagens',c.last?hm(c.last.ts):'',c.last&&c.last.from!=me&&c.last.ts>(rd[c.id]||0))}))].sort((a,b)=>b.ts-a.ts);
+  return [$('div',{className:'pad'},q),res,$('div',{className:'f',onclick:()=>{ng={name:'',sel:new Set()};render()}},$('div',{className:'av',textContent:'👥',style:'background:var(--ac)'}),$('div',{className:'mid'},$('b',{textContent:'Novo grupo'}))),...items.map(i=>i.el())]}
+function newgroup(){const ppl=[...new Set(Object.values(chats).filter(c=>!c.group).map(other))].filter(id=>P(id).name),er=$('p',{className:'mu pad'}),ni=$('input',{placeholder:'Nome do grupo',value:ng.name,maxLength:40});ni.oninput=()=>ng.name=ni.value;
+  return [$('div',{className:'ch'},$('button',{textContent:'←',onclick:()=>{ng=null;render()}}),$('b',{textContent:'Novo grupo'})),$('div',{className:'pad'},ni),$('div',{className:'pad mu',textContent:ppl.length?'Participantes':'Converse com alguém primeiro para poder adicioná-lo a um grupo.'}),
+    ...ppl.map(id=>$('div',{className:'f',onclick:()=>{ng.sel.has(id)?ng.sel.delete(id):ng.sel.add(id);render()}},avU(id),$('div',{className:'mid'},$('b',{textContent:nm(id)})),$('span',{textContent:ng.sel.has(id)?'✅':'⬜'}))),er,
+    $('div',{className:'pad'},$('button',{className:'b',textContent:'Criar grupo',onclick:async()=>{const n=ng.name.trim();if(!n){er.textContent='Dê um nome ao grupo.';return}if(!ng.sel.size){er.textContent='Escolha pelo menos uma pessoa.';return}
+      const r=await addDoc(collection(db,'chats'),{members:[me,...ng.sel],group:true,name:n,by:me,ts:Date.now()});ng=null;openChat(r.id)}}))]}
+function chat(){const id=chatWith,g=id!=BOT&&chats[id]?.group,box=$('div',{id:'msgs'}),inp=$('input',{id:'ci',placeholder:'Mensagem'});fillMsgs(box);
+  const sub=g?chats[id].members.map(nm).join(', '):status(id==BOT?BOT:other(chats[id]||{members:[]}));
+  const send=async(t,img,audio,dur)=>{if(!t&&!img&&!audio)return;if(id==BOT){const l=getLog(BOT);l.push({from:me,text:audio?'🎤 Áudio':t,img,ts:Date.now()});setLog(BOT,l);msgs=l;fillMsgs(box);return botSay(audio?'Recebi seu áudio! 🎤 (ainda não sei ouvir 😅)':img?'Recebi sua foto! 📷':botAnswer(t))}
+    try{const ts=Date.now();await addDoc(collection(db,'chats',id,'messages'),{from:me,text:audio?'':t,ts,...(img?{img}:{}),...(audio?{audio,dur}:{})});await updateDoc(doc(db,'chats',id),{last:{text:audio?'🎤 Áudio':img?'📷 Foto':t,from:me,ts}})}catch{box.append($('div',{className:'mu',textContent:'Não foi possível enviar.'}))}};
+  const go=()=>{const t=inp.value.trim();inp.value='';send(t)};const mic=$('button',{className:'mic',textContent:'🎤'});recordUI(mic,inp,(url,dur)=>send('',null,url,dur));inp.onkeydown=e=>{if(e.key=='Enter')go()};
+  return [$('div',{className:'cw'},$('div',{className:'ch'},$('button',{textContent:'←',onclick:()=>{leave();render()}}),avC(id),$('div',{style:'min-width:0;flex:1'},$('b',{textContent:cn(id)}),$('div',{id:'st',className:'mu nw',textContent:sub})),...(g||id==BOT?[]:[$('button',{textContent:'📞',onclick:()=>startCall(other(chats[id]),'voice')}),$('button',{textContent:'🎥',onclick:()=>startCall(other(chats[id]),'video')})])),box,
+    $('div',{className:'bar'},$('button',{className:'clip',textContent:'📷',onclick:()=>pickFile(async f=>send('',await shrink(f,720,.6)))}),inp,mic,$('button',{className:'send',textContent:'➤',onclick:go})))]}
+/* ---- áudio: segure o botão para gravar ---- */
+function recordUI(btn,inp,onDone){let rec,chunks=[],t0=0,timer,stream,cancelled=false,startX=0,active=false;
+  const mime=['audio/webm;codecs=opus','audio/mp4','audio/webm'].find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||'';
+  const stop=()=>{if(rec&&rec.state=='recording')rec.stop();active=false};
+  const reset=()=>{recording=false;clearInterval(timer);btn.classList.remove('on');inp.disabled=false;inp.placeholder='Mensagem'};
+  btn.oncontextmenu=e=>e.preventDefault();
+  btn.onpointerdown=async e=>{e.preventDefault();if(active)return;if(!window.MediaRecorder){alert('Este navegador não permite gravar áudio.');return}
+    active=true;cancelled=false;startX=e.clientX;recording=true;try{btn.setPointerCapture(e.pointerId)}catch{}
+    try{stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch{active=false;reset();alert('Permita o uso do microfone para gravar áudios.');return}
+    if(!active){stream.getTracks().forEach(t=>t.stop());reset();return}
+    chunks=[];rec=new MediaRecorder(stream,{...(mime?{mimeType:mime}:{}),audioBitsPerSecond:24000});
+    rec.ondataavailable=ev=>ev.data.size&&chunks.push(ev.data);
+    rec.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());reset();const dur=Math.round((Date.now()-t0)/1000);if(cancelled||dur<1)return;
+      const blob=new Blob(chunks,{type:rec.mimeType||mime||'audio/webm'});
+      const url=await new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(blob)});
+      if(url.length>900000){alert('Áudio muito longo. Grave até 1 minuto.');return}onDone(url,dur)};
+    t0=Date.now();rec.start();btn.classList.add('on');inp.disabled=true;
+    timer=setInterval(()=>{const s=Math.round((Date.now()-t0)/1000);inp.placeholder=cancelled?'Solte para cancelar':'🔴 Gravando '+s+'s · solte para enviar · arraste ← para cancelar';if(s>=60)stop()},250)};
+  btn.onpointermove=e=>{if(active&&e.clientX<startX-80)cancelled=true};
+  btn.onpointerup=()=>{if(!rec||rec.state!='recording'){active=false;return}stop()};
+  btn.onpointercancel=()=>{cancelled=true;stop()}}
+/* ---- chamadas de voz e vídeo (WebRTC + Firestore) ---- */
+const ICE={iceServers:[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302']}]};
+let call=null;const mmss=ms=>{const s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+const setStatus=t=>{if(call)call.st.textContent=t};
+function addCand(c){const k=call;if(!k)return;k.pc.remoteDescription?k.pc.addIceCandidate(c).catch(()=>{}):k.pending.push(c)}
+function flush(){const k=call;if(!k)return;k.pending.forEach(c=>k.pc.addIceCandidate(c).catch(()=>{}));k.pending=[]}
+function callUI(uid,type){const rv=$('video',{className:'rv',autoplay:true,playsInline:true}),lv=$('video',{className:'lv',autoplay:true,playsInline:true,muted:true}),st=$('div',{className:'cs',textContent:'Chamando…'}),
+  mic=$('button',{className:'cbtn',textContent:'🎤'}),cam=$('button',{className:'cbtn',textContent:'📹'}),shr=$('button',{className:'cbtn',textContent:'🖥️'}),end=$('button',{className:'cbtn red',textContent:'📵'});
+  const ov=$('div',{className:'call'+(type=='video'?' v':'')},rv,lv,st,$('div',{className:'ci'},avU(uid,1),$('b',{textContent:nm(uid)})),$('div',{className:'cb'},mic,...(type=='video'?[cam,shr]:[]),end));
+  document.body.append(ov);return{ov,rv,lv,st,mic,cam,shr,end}}
+async function prep(uid,type,role){const stream=await navigator.mediaDevices.getUserMedia({audio:true,video:type=='video'?{facingMode:'user'}:false});
+  const pc=new RTCPeerConnection(ICE);stream.getTracks().forEach(t=>pc.addTrack(t,stream));const ui=callUI(uid,type);
+  call={pc,stream,uid,type,role,unsubs:[],pending:[],ov:ui.ov,st:ui.st,ui};ui.lv.srcObject=stream;
+  pc.ontrack=e=>{ui.rv.srcObject=e.streams[0];if(type=='video')ui.ov.classList.add('vid')};
+  pc.onconnectionstatechange=()=>{const k=call;if(!k)return;if(pc.connectionState=='connected'&&!k.t0){k.t0=Date.now();clearTimeout(k.timeout);k.timer=setInterval(()=>setStatus(mmss(Date.now()-k.t0)),1000);setStatus('00:00')}
+    if(pc.connectionState=='failed')endCall('Falha na conexão')};
+  const tog=(btn,kind,on,off)=>btn.onclick=()=>{const t=stream[kind=='a'?'getAudioTracks':'getVideoTracks']()[0];if(!t)return;t.enabled=!t.enabled;btn.textContent=t.enabled?on:off;btn.classList.toggle('off',!t.enabled)};
+  tog(ui.mic,'a','🎤','🔇');tog(ui.cam,'v','📹','🚫');ui.shr.onclick=toggleShare;ui.end.onclick=()=>endCall('Encerrada')}
+async function startCall(uid,type){if(call||!uid)return;
+  try{await prep(uid,type,'out');const c=call,pc=c.pc,ref=doc(collection(db,'calls'));c.id=ref.id;
+    pc.onicecandidate=e=>e.candidate&&addDoc(collection(ref,'callerCandidates'),e.candidate.toJSON());
+    const offer=await pc.createOffer();await pc.setLocalDescription(offer);
+    await setDoc(ref,{from:me,to:uid,type,status:'ringing',offer:{type:offer.type,sdp:offer.sdp},ts:Date.now()});
+    c.unsubs.push(onSnapshot(ref,async s=>{const d=s.data();if(!d||!call)return;
+      if(d.answer&&!pc.currentRemoteDescription){await pc.setRemoteDescription(d.answer);flush();setStatus('Conectando…')}
+      if(call)call.ui.rv.style.objectFit=d['sh_'+call.uid]?'contain':'cover';if(d.status=='declined')endCall('Chamada recusada',false);if(d.status=='ended')endCall('Chamada encerrada',false)}));
+    c.unsubs.push(onSnapshot(collection(ref,'calleeCandidates'),s=>s.docChanges().forEach(ch=>ch.type=='added'&&addCand(ch.doc.data()))));
+    c.timeout=setTimeout(()=>{if(call==c&&!c.t0)endCall('Sem resposta')},45000);
+  }catch(e){endCall('',false);alert('Não foi possível iniciar a chamada. Permita o uso do microfone'+(type=='video'?' e da câmera':'')+' e tente de novo.')}}
+/* ---- compartilhar tela (só em computadores) ---- */
+async function toggleShare(){const k=call;if(!k||k.type!='video')return;if(k.sharing)return stopShare();
+  if(!navigator.mediaDevices.getDisplayMedia){alert('Este aparelho não permite compartilhar a tela pelo navegador. Isso funciona no computador (Chrome, Edge ou Firefox).');return}
+  const snd=k.pc.getSenders().find(x=>x.track&&x.track.kind=='video');if(!snd)return;
+  try{const ds=await navigator.mediaDevices.getDisplayMedia({video:true,audio:false}),tr=ds.getVideoTracks()[0];await snd.replaceTrack(tr);
+    k.sharing=ds;k.ui.lv.srcObject=ds;k.ui.lv.style.transform='none';k.ui.shr.textContent='⏹️';k.ui.shr.classList.add('off');
+    updateDoc(doc(db,'calls',k.id),{['sh_'+me]:true}).catch(()=>{});tr.onended=stopShare}catch(e){}}
+async function stopShare(){const k=call;if(!k||!k.sharing)return;const cam=k.stream.getVideoTracks()[0],snd=k.pc.getSenders().find(x=>x.track&&x.track.kind=='video');
+  k.sharing.getTracks().forEach(t=>t.stop());k.sharing=null;try{await snd.replaceTrack(cam)}catch{}
+  k.ui.lv.srcObject=k.stream;k.ui.lv.style.transform='';k.ui.shr.textContent='🖥️';k.ui.shr.classList.remove('off');
+  updateDoc(doc(db,'calls',k.id),{['sh_'+me]:false}).catch(()=>{})}
+function incoming(id,d){if(call){updateDoc(doc(db,'calls',id),{status:'declined'}).catch(()=>{});return}
+  if(document.querySelector('[data-cid="'+id+'"]'))return;
+  const ov=$('div',{className:'call'},$('div',{className:'ci'},avU(d.from,1),$('b',{textContent:nm(d.from)}),$('div',{className:'mu',textContent:'Chamada de '+(d.type=='video'?'vídeo':'voz')+'…'})),
+    $('div',{className:'cb'},$('button',{className:'cbtn red',textContent:'📵',onclick:()=>{ov.remove();updateDoc(doc(db,'calls',id),{status:'declined'}).catch(()=>{})}}),$('button',{className:'cbtn green',textContent:'📞',onclick:()=>{ov.remove();answer(id,d)}})));
+  ov.dataset.cid=id;document.body.append(ov);navigator.vibrate&&navigator.vibrate([300,200,300])}
+async function answer(id,d){try{await prep(d.from,d.type,'in');const c=call,pc=c.pc,ref=doc(db,'calls',id);c.id=id;
+    pc.onicecandidate=e=>e.candidate&&addDoc(collection(ref,'calleeCandidates'),e.candidate.toJSON());
+    await pc.setRemoteDescription(d.offer);const ans=await pc.createAnswer();await pc.setLocalDescription(ans);
+    await updateDoc(ref,{answer:{type:ans.type,sdp:ans.sdp},status:'active'});setStatus('Conectando…');
+    c.unsubs.push(onSnapshot(collection(ref,'callerCandidates'),s=>s.docChanges().forEach(ch=>ch.type=='added'&&addCand(ch.doc.data()))));
+    c.unsubs.push(onSnapshot(ref,s=>{const x=s.data();if(x&&call)call.ui.rv.style.objectFit=x['sh_'+call.uid]?'contain':'cover';if(x&&x.status=='ended')endCall('Encerrada',false)}));
+  }catch(e){updateDoc(doc(db,'calls',id),{status:'declined'}).catch(()=>{});endCall('',false);alert('Não foi possível atender. Permita o uso do microfone'+(d.type=='video'?' e da câmera':'')+'.')}}
+function endCall(msg,notify=true){const c=call;if(!c)return;call=null;clearTimeout(c.timeout);clearInterval(c.timer);c.unsubs.forEach(u=>u());
+  c.stream&&c.stream.getTracks().forEach(t=>t.stop());c.sharing&&c.sharing.getTracks().forEach(t=>t.stop());c.pc.close();c.ov.remove();
+  if(notify&&c.id)updateDoc(doc(db,'calls',c.id),{status:'ended'}).catch(()=>{});
+  if(c.role=='out'&&c.id){const kind=c.type=='video'?'vídeo':'voz',text=c.t0?'📞 Chamada de '+kind+' ('+mmss(Date.now()-c.t0)+')':msg=='Chamada recusada'?'📞 Chamada recusada':'📞 Chamada não atendida',cid=dmId(me,c.uid),ts=Date.now();
+    addDoc(collection(db,'chats',cid,'messages'),{from:me,text,ts}).then(()=>updateDoc(doc(db,'chats',cid),{last:{text,from:me,ts}})).catch(()=>{})}}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+window.__st='3 código carregado';render();
+</script></body></html>
